@@ -33,7 +33,7 @@ artifacts:
   files:
     - Dockerfile
     - imagedefinitions.json
-    - target/app.jar
+    - target/enrollment-api-1.0-SNAPSHOT.jar
   discard-paths: no
 cache:
   paths:
