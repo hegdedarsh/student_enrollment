@@ -14,7 +14,7 @@ Click on Create Pipeline
 
 
 ```
-Provide the pipeline name service role name
+Provide the pipeline name  & service role name
 ```
 
 ![image](https://user-images.githubusercontent.com/20787443/92322562-9971f680-f064-11ea-8b30-7991dac01625.png)
