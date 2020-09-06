@@ -17,9 +17,10 @@ phases:
       - echo Entered the build phase...
       - echo Build started on `date`
       - MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
-      - mvn clean package
+      - mvn clean install
       - echo Building the Docker image...
-      - docker build -f enrollment-api/Dockerfile -t $REPOSITORY_URI:latest .
+      - cd enrollment-api
+      - docker build -f Dockerfile -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
