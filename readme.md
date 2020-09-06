@@ -1,6 +1,4 @@
-### Travis CI 
-
-[![Build Status](https://travis-ci.com/gognamunish/student_enrollment.svg?branch=master)](https://travis-ci.com/gognamunish/student_enrollment)
+### Student Enrollment
 
 ### About
 Student Enrollment project is a basic Spring boot application that follows micro service architecture and exposes REST API endpoints supporting current business use cases.
@@ -10,21 +8,20 @@ Student Enrollment project is a basic Spring boot application that follows micro
 - Maven
 - Java 8
 - Docker
+- AWS Console Access
+- buildspec.yml
+- Task definition
 
 ### Design Features/Considerations
-- Travis CI configured for builds, every commit starts a new build. 
-- Maven multi module project and separates REST from DAO layer (can be easily separated into individual repos).
-- Since there is only one Micro service at the moment so no Gateway endpoint added for sake of performance (YAGNI) 
-- Spring Data JPA ready (default is H2)
-- Cucumber BDD adoption for basic use cases (Show case only).
-- Database design for the moment defines just one Entity, later we might want to normalize enrollment into - Student, Class & Enrollment entities.
-- No Cache is used at the moment so in Future some distributed and highly fault tolerant Cache like Hazelcast can be used
+- Create a CodePipeline with Source as Github, Codebuild with buildspec.yml and CodeDeploy as ECS/Fargate
+- Need to have a ECR registry created
+- API Gateway is not good, can connect to the ALB whereas the actual microservice is deployed on AWS Fargate
+- Not using RDS and using default is H2 since I havent written the code and might need to tweak a bit
 
-### TODO
-- Helm chart / Kubernetes Setup
-- AWS Deployment / Setup
-- MySQL spring profile
-- Application has potential for all good "Spring Cloud" stuff like Config Server, ZooKeeper Discovery, Zuul, Ribbon, Hystrix etc.
+### Things to do
+
+- Create the ECR repo and provide the path to the one created by you in the buildspec.yml
+
 
 ## Running Application as Docker Image on Local Machine
 ```shell script
