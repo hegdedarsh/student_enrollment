@@ -18,6 +18,9 @@ Student Enrollment project is a basic Spring boot application that follows micro
 - API Gateway is not good, can connect to the ALB whereas the actual microservice is deployed on AWS Fargate
 - Not using RDS and using default is H2 since I havent written the code and might need to tweak a bit
 
+### Things to do
+
+- Create the ECR repo path to the one created by you in the buildspec.yml
 
 
 ## Running Application as Docker Image on Local Machine
