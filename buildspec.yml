@@ -1,0 +1,41 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo Entered the install phase...
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay&
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Build started on `date`
+      - MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
+      - mvn clean package -DskipTests
+      - echo Copy new-relic config file...
+      - cp newrelic-agent/stage/* newrelic-agent/deploy/
+      - echo Building the Docker image...
+      - docker build -f enrollment-api/Dockerfile -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"student-enrollment-rest-api","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - Dockerfile
+    - imagedefinitions.json
+    - target/student-enrollment-rest-api-0.0.1-SNAPSHOT.jar
+  discard-paths: no
+cache:
+  paths:
+    - '/root/.m2/**/*'
