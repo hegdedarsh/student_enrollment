@@ -10,6 +10,7 @@ phases:
       - echo Entered the pre_build phase...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI=565040840361.dkr.ecr.ap-southeast-1.amazonaws.com/student-enrollment-api
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands:
@@ -17,8 +18,6 @@ phases:
       - echo Build started on `date`
       - MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
       - mvn clean package -DskipTests
-      - echo Copy new-relic config file...
-      - cp newrelic-agent/stage/* newrelic-agent/deploy/
       - echo Building the Docker image...
       - docker build -f enrollment-api/Dockerfile -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
