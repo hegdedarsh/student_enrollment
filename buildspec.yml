@@ -28,13 +28,12 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
+      - cd ../
       - printf '[{"name":"student-enrollment-rest-api","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - echo Build completed on `date`
 artifacts:
   files:
-    - Dockerfile
     - imagedefinitions.json
-    - target/enrollment-api-1.0-SNAPSHOT.jar
   discard-paths: no
 cache:
   paths:
