@@ -33,7 +33,7 @@ Select the source as Github
 ![image](https://user-images.githubusercontent.com/20787443/92322674-45b3dd00-f065-11ea-97c9-abb8608015cc.png)
 
 ```
-Click on connect to Gihub
+Click on connect to Github
 ```
 
 ![image](https://user-images.githubusercontent.com/20787443/92322700-6bd97d00-f065-11ea-8006-361ff71ed365.png)
