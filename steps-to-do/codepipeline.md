@@ -58,5 +58,11 @@ Select the master branch and keep the default settings for github webhooks and t
 
 ![image](https://user-images.githubusercontent.com/20787443/92322797-ffab4900-f065-11ea-8d9b-45a791979e95.png)
 
+```Select Codebuild and hit Next
+```
+
+![image](https://user-images.githubusercontent.com/20787443/92325735-799bfc00-f07f-11ea-8475-92cdb5d61558.png)
+
+
 
 
