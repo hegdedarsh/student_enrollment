@@ -20,7 +20,7 @@ Student Enrollment project is a basic Spring boot application that follows micro
 
 ### Things to do
 
-- Create the ECR repo path to the one created by you in the buildspec.yml
+- Create the ECR repo and provide the path to the one created by you in the buildspec.yml
 
 
 ## Running Application as Docker Image on Local Machine
